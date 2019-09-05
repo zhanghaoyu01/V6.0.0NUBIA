@@ -75,7 +75,7 @@
             $('#memberUnLogin .c-holder .nav').append(`
             <li role="presentation" class="exit">
                 <a>
-                    <i class="glyphicon iconfont icon-rentou" style="font-size:15px;color:#888;">
+                    <i class="iconfont icon-rentou" style="font-size:15px;color:#888;">
                     </i>
                     退出 
                 </a>
@@ -85,9 +85,9 @@
 
         } else { //用户没有登录，则删除退出li 并换成登录按钮
             $('.unloginNav').html(`
-            <button type="button" style="font - size: 14 px; color: rgb(255, 255, 255);">立即登录</button> 
+            <button style="font - size: 14 px; color: rgb(255, 255, 255);">立即登录</button> 
             <p > 没有账号？ 
-                <a href = "../html/regest-login.html" > 立即注册 </a>
+                <a href = "https://account.nubia.com/login/registerVerify.action" > 立即注册 </a>
             </p >`);
             $('.exit').remove();
             $('#memberLoginTitle').find('.icon-rentou1').removeClass("icon-rentou1").addClass("icon-rentou").css({
@@ -111,14 +111,13 @@
             cookie.remove('username');
             location.reload();
         });
-        // nav top 立即注册的跳转  .unloginNav
+        // nav top 立即登录的跳转  .unloginNav
         $('.unloginNav').click(function() {
             location.href = '../html/regest-login.html';
-
         });
 
         //立即登录的跳转
-        $('.unloginNav').find('.button').click(function(e) {
+        $('.unloginNav').find('button').click(function(e) {
             e.stopPropagation();
             Location.href = '../html/regest-login.html'
         });
@@ -138,8 +137,8 @@
                 dataType: "json",
                 success: function(res) {
                     var navcart = '';
-                    var allprice = 0;
-                    var allnum = 0;
+                    let allprice = 0;
+                    let allnum = 0;
                     res.forEach((elm, i) => {
                         var arr = shop.filter((val, i) => { //筛选cookie 中相匹配的数据对象
                             return val.id === elm.id;
@@ -162,7 +161,9 @@
                     });
                     $('.nav.shopCarMenu').append(navcart);
                     $('.shop-totle-num').html('￥' + allprice.toFixed(2));
-                    $('.shopCarTipNav').html(allnum)
+                    $('.shopCarTipNav').html(allnum);
+
+
                 }
             });
         }

@@ -1,65 +1,11 @@
 (function($) {
     $(function() {
-        // .detail-tab的tab切换
-        $('.detail-tab .detailtab li').click(function() {
-            $(this).addClass('active')
-                .siblings().removeClass('active');
-            $('.tab-pane').eq($(this).index()).addClass('active').css({
-                'display': 'block'
-            }).siblings('.tab-pane').removeClass('active').css('display', 'none');
-        });
-
-        // .fixedProductDetail 的tabs 切换
-        $('.fixedLeft span').click(function() {
-            $(this).addClass('fixedCur').siblings().removeClass('fixedCur');
-            $('.detail-tab .detailtab li').eq($(this).index()).trigger('click');
-        })
-
-        // goto purchase where top fixed when scrollTop gt some value
-        $(window).scroll(() => {
-            if ($('html,body').scrollTop() > $('.detail-tab').offset().top) {
-                $('#top_div').stop(true).animate({
-                    top: "66px"
-                }, 300)
-            } else {
-                $('#top_div').stop(true).animate({
-                    top: "-75px"
-                }, 100)
-            }
-        })
-        $('.productOptions').find('li').click(function() {
-            $(this).addClass("cur").siblings().removeClass("cur");
-        })
-
-        // purchase number plus and reduce
-        $('.minus').click(function(e) {
-            e.preventDefault();
-            var num = $('.totle').text();
-            if (num == 1) {
-                num = 1;
-            } else {
-                num--;
-            }
-            $('.totle').text(num)
-        });
-        $('.add').click(function(e) {
-            e.preventDefault();
-            var num = $('.totle').text();
-            num++;
-            $('.totle').text(num)
-        });
-
-        // 商品数量双击可编辑
-        $('.totle').dblclick(function(e) {
-            e.stopPropagation();
-            $('.totle').attr('contenteditable', true);
-            setTimeout(function() {
-                $('.totle').attr('contenteditable', false);
-            }, 5000);
-        })
 
 
         // 从 cookie中获得数量
+
+
+        //有误！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！111111111111111111111111111
         if (cookie.get('shop')) {
             let id = location.search.split('=')[1]; // 从地址栏获得ID
             let shop = JSON.parse(cookie.get('shop'));
@@ -79,11 +25,75 @@
         }
 
 
+
+
+
+        // .detail-tab的tab切换
+        $('.detail-tab .detailtab li').click(function() {
+            $(this).addClass('active')
+                .siblings().removeClass('active');
+            $('.tab-pane').eq($(this).index()).addClass('active').css({
+                'display': 'block'
+            }).siblings('.tab-pane').removeClass('active').css('display', 'none');
+        });
+
+        // .fixedProductDetail 的tabs 切换
+        $('.fixedLeft span').click(function() {
+            $(this).addClass('fixedCur').siblings().removeClass('fixedCur');
+            $('.detail-tab .detailtab li').eq($(this).index()).trigger('click');
+        })
+
+        // 商品数量双击可编辑
+        $('.totle').dblclick(function(e) {
+            e.stopPropagation();
+            $('.totle').attr('contenteditable', true);
+            setTimeout(function() {
+                $('.totle').attr('contenteditable', false);
+            }, 50000);
+        })
+
+        // goto purchase where top fixed when scrollTop gt some value
+        $(window).scroll(() => {
+            if ($('html,body').scrollTop() > $('.detail-tab').offset().top) {
+                $('#top_div').stop(true).animate({
+                    top: "66px"
+                }, 300)
+            } else {
+                $('#top_div').stop(true).animate({
+                    top: "-75px"
+                }, 100)
+            }
+        })
+
+        $('.productOptions').find('li').click(function() {
+            $(this).addClass("cur").siblings().removeClass("cur");
+        })
+
+        // purchase number plus and reduce
+        $('.minus').click(function(e) {
+            e.preventDefault();
+            var num = $('.totle').text();
+            if (num == 1) {
+                num = 1;
+            } else {
+                num--;
+            }
+            $('.totle').text(num)
+        });
+
+        $('.add').click(function(e) {
+            e.preventDefault();
+            var num = $('.totle').text();
+            num++;
+            $('.totle').text(num)
+        });
+
+
+        // fixed hide btn click event
         $('#btn-buy-fixed').click(function(ev) {
             ev.stopPropagation();
             location.href = '../html/cart.html';
         })
-
 
 
         // 获取数据
@@ -110,7 +120,7 @@
                     mainscale.find('.PriceContent span').first().text(res.price);
                     mainscale.find('#spic img').attr('src', JSON.parse(imgurl)[0]);
                     mainscale.find('#bpic').attr('src', JSON.parse(imgurl)[0]);
-                    $('.fixedRight > img').attr('src', JSON.parse(imgurl)[0]);
+
                     // mainscale.find('#list li img').each(function(index,elm){
                     //     $(elm).attr('src',res.imgurl[index])
                     // });
@@ -157,7 +167,7 @@
 
                     if (shop.some(elm => elm.id == id)) {
                         shop.forEach((elm, i) => {
-                            elm.id == id ? elm.num = num : null; //可以采用  +=  或者$('.totle').html()的值从cookie中获取
+                            elm.id == id ? elm.num = num : null;
                         });
                     } else {
                         shop.push(product);

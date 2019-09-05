@@ -163,8 +163,7 @@ $(function() {
                     cookie.set('shop', JSON.stringify(shoplist));
 
                     //删除li标签
-                    $(this).parent().parent().remove();
-                    location.reload();
+                    $(this).parent().parent().remove()
 
                 });
 

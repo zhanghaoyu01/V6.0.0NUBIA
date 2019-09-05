@@ -238,11 +238,6 @@ a {
     user-select: none !important;
 }
 
-input:focus,
-button:focus {
-    outline: none;
-}
-
 
 /* p{
     word-wrap: break-word;
