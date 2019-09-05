@@ -20,24 +20,108 @@
     <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
     <title>Document</title>
+    <style>
+        body {
+            height: 1000px;
+            background-color: pink;
+        }
+        
+        a {
+            font-size: 30px;
+            display: inline-block;
+            margin: 10px auto 10px 300px;
+            width: 300px;
+            height: 40px;
+            background-color: yellowgreen;
+        }
+    </style>
 </head>
 
 <body>
+    <a href="http://baidu.com" target="_blank" rel="noopener noreferrer">百度</a>
     <script>
-        $(window).blur(function() {
-            var blurTime = Date.now();
-            console.log("'么么哒 ': blurTime", blurTime)
-        });
-        $(window).focus(function() {
-            var focusTime = Date.now();
-            console.log("'么么哒 ': focusTime", focusTime)
-            if (focusTime - blurTime > 5000) {
-                alert(`欢迎回来`)
-            }
-        });
-        $(window).unload(function() {
-            var unloadTime = Date.now();
-            console.log("'么么哒 ': blurTime", unloadTime)
+        $(function() {
+            // unload() 事件
+            $(window).unload(function() {
+                alert('1');
+                var unloadTime = Date.now();
+                console.log("'么么哒 ': blurTime", unloadTime)
+            });
+            window.onbeforeunload = function() {
+                alert(1)
+            };
+
+            // 下拉刷新
+            $(window).scroll(function() {
+                // console.log("'么么哒 ': $('html,body').scrollTop", $('html,body').scrollTop())
+                console.log("'么么哒 ': $(window).scrollTop()", $(window).scrollTop())
+                console.log($('a').);
+                if ($(window).scrollTop() < 0) {
+                    console.log('这是刷新');
+                } else {
+                    console.log('正在下拉...');
+                }
+            })
+
+
+
+
+            // 错误检测机制
+            // var blurTime;
+            // var focusTime;
+            // var count = 0;
+            // $(window).blur(function() {
+            //     blurTime = Date.now();
+            //     console.log("'么么哒 ': blurTime", blurTime)
+            // });
+            // $(window).focus(function() {
+            //     focusTime = Date.now();
+            //     console.log("'么么哒 ': focusTime", focusTime)
+            //     if (focusTime - blurTime > 5000) {
+            //         count++;
+            //         if (count >= 3) {
+            //             alert('发现考试作弊！！！')
+            //         }
+            //     }
+            // });
+
+            // 欢迎回来机制
+            // var blurTime;
+            // var focusTime;
+            // var gonetime;
+            // $(window).blur(function() {
+            //     blurTime = Date.now();
+            //     console.log("'么么哒 ': blurTime", blurTime)
+            // });
+            // $(window).focus(function() {
+            //     focusTime = Date.now();
+            //     console.log("'么么哒 ': focusTime", focusTime)
+            //     if (focusTime - blurTime > 30000) {
+            //         gonetime = focusTime - blurTime;
+            //         gonetime = gonetime / 1000;
+            //         var date = parseInt(gonetime / 86400),
+            //             hour = parseInt(gonetime % 86400 / 3600),
+            //             min = parseInt(gonetime % 3600 / 60),
+            //             sec = parseInt(gonetime % 60);
+            //         var gonetimestr = '';
+            //         if (date == 0) {
+            //             if (hour == 0) {
+            //                 if (min == 0) {
+            //                     gonetimestr = `${sec}秒`
+            //                 } else {
+            //                     gonetimestr = `${min}分钟,${sec}秒`
+            //                 }
+            //             } else {
+            //                 gonetimestr = `${hour}小时,${min}分钟,${sec}秒`
+            //             }
+            //         } else {
+            //             gonetimestr = `${date}天，${hour}小时,${min}分钟,${sec}秒`
+            //         }
+            //         alert(`小主人，欢迎您的回来！我已经有${gonetimestr}没有见到你了，好想你...`)
+            //     }
+            // });
+
+
 
         })
     </script>

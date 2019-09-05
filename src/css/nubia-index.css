@@ -153,6 +153,7 @@ h2 {
   color: white;
 }
 .indexheader .navbar-nav li.cart .shopCarTipNav {
+  overflow: hidden;
   width: 15px;
   height: 15px;
   border-radius: 50%;

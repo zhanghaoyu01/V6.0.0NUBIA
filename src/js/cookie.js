@@ -1,21 +1,4 @@
 (function() {
-    // $(window).unload(function() {
-    //     let flag = confirm('确定要退出当前页面么？');
-    //     if (flag) {
-    //         close();
-    //     } else {
-    //         location.reload();
-    //     }
-    // })
-    // $(window).blur(function() {
-    //     var blurTime = Date.now();
-    // });
-    // $(window).focus(function() {
-    //     var focusTime = Date.now();
-    //     if (focusTime - blurTime > 100 * 60 * 10) {
-    //         alert(`欢迎回来，${cookie.get('username')}`)
-    //     }
-    // });
     var cookie = {
         get: function(key) {
             if (document.cookie) { //判断是否有cookie数据
@@ -46,6 +29,8 @@
 
     window.cookie = cookie;
 })();
+
+
 
 (function($) {
     $(function() {
@@ -167,5 +152,48 @@
                 }
             });
         }
+    })
+})(jQuery);
+(($) => {
+    $(function() {
+        // 欢迎回来机制
+        var usernamestr = '';
+        if (cookie.get('username')) {
+            usernamestr = cookie.get('username');
+        } else {
+            usernamestr = '小主人';
+        }
+        var blurTime;
+        var focusTime;
+        var gonetime;
+        $(window).blur(function() {
+            blurTime = Date.now();
+        });
+        $(window).focus(function() {
+            focusTime = Date.now();
+            if (focusTime - blurTime > 3000) {
+                gonetime = focusTime - blurTime;
+                gonetime = gonetime / 1000;
+                var date = parseInt(gonetime / 86400),
+                    hour = parseInt(gonetime % 86400 / 3600),
+                    min = parseInt(gonetime % 3600 / 60),
+                    sec = parseInt(gonetime % 60);
+                var gonetimestr = '';
+                if (date == 0) {
+                    if (hour == 0) {
+                        if (min == 0) {
+                            gonetimestr = `${sec}秒`
+                        } else {
+                            gonetimestr = `${min}分钟,${sec}秒`
+                        }
+                    } else {
+                        gonetimestr = `${hour}小时,${min}分钟,${sec}秒`
+                    }
+                } else {
+                    gonetimestr = `${date}天，${hour}小时,${min}分钟,${sec}秒`
+                }
+                alert(`${usernamestr}，欢迎您的回来！我已经有${gonetimestr}没有见到你了，好想你...`)
+            }
+        });
     })
 })(jQuery);

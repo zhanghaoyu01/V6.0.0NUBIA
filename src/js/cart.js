@@ -1,20 +1,20 @@
 $(function() {
 
     // 离开页面时，重新存储cookie的num值
-    // $(window).unload(function() {
-    //     let shoplist = cookie.get('shop');
-    //     shoplist = JSON.parse(shoplist);
+    $(window).unload(function() {
+        let shoplist = cookie.get('shop');
+        shoplist = JSON.parse(shoplist);
 
-    //     $('tbody tr').each(function(index, elm) {
-    //         let id = $(elm).attr('class').split('-')[1].toString()
+        $('tbody tr').each(function(index, elm) {
+            let id = $(elm).attr('class').split('-')[1].toString()
 
-    //         let num = $(elm).find('.num.cart-cnt').val();
-    //         shoplist.forEach((elm, i) => {
-    //             elm.id == id ? elm.num = num : null;
-    //         });
-    //     })
-    //     alert('确定要离开么？')
-    // });
+            let num = $(elm).find('.num.cart-cnt').val();
+            shoplist.forEach((elm, i) => {
+                elm.id == id ? elm.num = num : null;
+            });
+        })
+        alert('确定要离开么？')
+    });
 
 
 
@@ -107,7 +107,6 @@ $(function() {
                     }
                 })
 
-                calc()
                 let flagnum = 0;
                 // 全选按钮
                 $('#selectall').on('click', function() {
@@ -164,7 +163,7 @@ $(function() {
 
                     //删除li标签
                     $(this).parent().parent().remove()
-
+                    location.reload();
                 });
 
                 //总价和总的数量
@@ -182,7 +181,9 @@ $(function() {
                 }
                 calc();
 
+                $('..btn-cnts').click(function() {
 
+                })
 
 
 
