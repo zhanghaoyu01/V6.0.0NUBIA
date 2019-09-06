@@ -181,9 +181,9 @@ $(function() {
                 }
                 calc();
 
-                $('..btn-cnts').click(function() {
+                // $('.btn-cnts').click(function() {
 
-                })
+                // })
 
 
 

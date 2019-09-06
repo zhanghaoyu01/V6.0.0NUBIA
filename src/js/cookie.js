@@ -1,4 +1,21 @@
 (function() {
+    // $(window).unload(function() {
+    //     let flag = confirm('确定要退出当前页面么？');
+    //     if (flag) {
+    //         close();
+    //     } else {
+    //         location.reload();
+    //     }
+    // })
+    // $(window).blur(function() {
+    //     var blurTime = Date.now();
+    // });
+    // $(window).focus(function() {
+    //     var focusTime = Date.now();
+    //     if (focusTime - blurTime > 100 * 60 * 10) {
+    //         alert(`欢迎回来，${cookie.get('username')}`)
+    //     }
+    // });
     var cookie = {
         get: function(key) {
             if (document.cookie) { //判断是否有cookie数据
@@ -30,8 +47,6 @@
     window.cookie = cookie;
 })();
 
-
-
 (function($) {
     $(function() {
         //处理fixed top 的用户头像问题
@@ -60,7 +75,7 @@
             $('#memberUnLogin .c-holder .nav').append(`
             <li role="presentation" class="exit">
                 <a>
-                    <i class="iconfont icon-rentou" style="font-size:15px;color:#888;">
+                    <i class="glyphicon iconfont icon-rentou" style="font-size:15px;color:#888;">
                     </i>
                     退出 
                 </a>
@@ -69,10 +84,11 @@
             // nav 人头变红
 
         } else { //用户没有登录，则删除退出li 并换成登录按钮
+            // onclick="location.href = '../html/regest-login.html';"
             $('.unloginNav').html(`
-            <button style="font - size: 14 px; color: rgb(255, 255, 255);">立即登录</button> 
+            <button type="button"  class="button"   style="font-size: 14 px; color: rgb(255, 255, 255);">立即登录</button> 
             <p > 没有账号？ 
-                <a href = "https://account.nubia.com/login/registerVerify.action" > 立即注册 </a>
+                <a href = "../html/regest-login.html" > 立即注册 </a>
             </p >`);
             $('.exit').remove();
             $('#memberLoginTitle').find('.icon-rentou1').removeClass("icon-rentou1").addClass("icon-rentou").css({
@@ -89,6 +105,27 @@
                     backgroundColor: '#282828'
                 })
             });
+            //立即登录的跳转
+            // way 1
+            $('.button').click(function(e) {
+                e.stopPropagation();
+                location.href = '../html/regest-login.html'
+            });
+            // way 2
+            // $('.unloginNav').on('click', '.button', function(e) {
+            //     alert(1);
+            //     e.stopPropagation();
+            //     location.href = '../html/regest-login.html'
+            // })
+            // way 3
+            // setTimeout(() => {
+            //     alert(0)
+            //     $('.unloginNav .button').click(function(e) {
+            //         alert(1)
+            //         e.stopPropagation();
+            //         Location.href = '../html/regest-login.html'
+            //     });
+            // }, 1000);
         }
 
         // nav top .exit 的跳转
@@ -96,16 +133,13 @@
             cookie.remove('username');
             location.reload();
         });
-        // nav top 立即登录的跳转  .unloginNav
-        $('.unloginNav').click(function() {
-            location.href = '../html/regest-login.html';
-        });
+        // nav top 立即注册的跳转  .unloginNav
+        // $('.unloginNav').click(function() {
+        //     location.href = '../html/regest-login.html';
 
-        //立即登录的跳转
-        $('.unloginNav').find('.button').click(function(e) {
-            e.stopPropagation();
-            Location.href = '../html/regest-login.html'
-        });
+        // });
+
+
 
 
         // ajax获取数据
@@ -122,8 +156,8 @@
                 dataType: "json",
                 success: function(res) {
                     var navcart = '';
-                    let allprice = 0;
-                    let allnum = 0;
+                    var allprice = 0;
+                    var allnum = 0;
                     res.forEach((elm, i) => {
                         var arr = shop.filter((val, i) => { //筛选cookie 中相匹配的数据对象
                             return val.id === elm.id;
@@ -146,54 +180,9 @@
                     });
                     $('.nav.shopCarMenu').append(navcart);
                     $('.shop-totle-num').html('￥' + allprice.toFixed(2));
-                    $('.shopCarTipNav').html(allnum);
-
-
+                    $('.shopCarTipNav').html(allnum)
                 }
             });
         }
-    })
-})(jQuery);
-(($) => {
-    $(function() {
-        // 欢迎回来机制
-        var usernamestr = '';
-        if (cookie.get('username')) {
-            usernamestr = cookie.get('username');
-        } else {
-            usernamestr = '小主人';
-        }
-        var blurTime;
-        var focusTime;
-        var gonetime;
-        $(window).blur(function() {
-            blurTime = Date.now();
-        });
-        $(window).focus(function() {
-            focusTime = Date.now();
-            if (focusTime - blurTime > 3000) {
-                gonetime = focusTime - blurTime;
-                gonetime = gonetime / 1000;
-                var date = parseInt(gonetime / 86400),
-                    hour = parseInt(gonetime % 86400 / 3600),
-                    min = parseInt(gonetime % 3600 / 60),
-                    sec = parseInt(gonetime % 60);
-                var gonetimestr = '';
-                if (date == 0) {
-                    if (hour == 0) {
-                        if (min == 0) {
-                            gonetimestr = `${sec}秒`
-                        } else {
-                            gonetimestr = `${min}分钟,${sec}秒`
-                        }
-                    } else {
-                        gonetimestr = `${hour}小时,${min}分钟,${sec}秒`
-                    }
-                } else {
-                    gonetimestr = `${date}天，${hour}小时,${min}分钟,${sec}秒`
-                }
-                alert(`${usernamestr}，欢迎您的回来！我已经有${gonetimestr}没有见到你了，好想你...`)
-            }
-        });
     })
 })(jQuery);

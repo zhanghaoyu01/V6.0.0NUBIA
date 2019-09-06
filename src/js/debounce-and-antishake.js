@@ -1,4 +1,4 @@
-function antishake(callback, wait) {
+function save(callback, wait) {
     let previous = 0; //纪录上次执行的时间
     return function() {
         let now = Date.now(); //获得当前时间

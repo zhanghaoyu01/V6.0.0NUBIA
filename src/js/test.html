@@ -39,29 +39,40 @@
 
 <body>
     <a href="http://baidu.com" target="_blank" rel="noopener noreferrer">百度</a>
+    <div>
+
+    </div>
+    <script>
+        $(function() {
+            $('div').html(`<button type="button" class="button">hello</button>`);
+            $('.button').click(function() {
+                alert(1)
+            })
+        })
+    </script>
     <script>
         $(function() {
             // unload() 事件
-            $(window).unload(function() {
-                alert('1');
-                var unloadTime = Date.now();
-                console.log("'么么哒 ': blurTime", unloadTime)
-            });
-            window.onbeforeunload = function() {
-                alert(1)
-            };
+            // $(window).unload(function() {
+            //     alert('1');
+            //     var unloadTime = Date.now();
+            //     console.log("'么么哒 ': blurTime", unloadTime)
+            // });
+            // window.onbeforeunload = function() {
+            //     alert(1)
+            // };
 
-            // 下拉刷新
-            $(window).scroll(function() {
-                // console.log("'么么哒 ': $('html,body').scrollTop", $('html,body').scrollTop())
-                console.log("'么么哒 ': $(window).scrollTop()", $(window).scrollTop())
-                console.log($('a').);
-                if ($(window).scrollTop() < 0) {
-                    console.log('这是刷新');
-                } else {
-                    console.log('正在下拉...');
-                }
-            })
+            // // 下拉刷新
+            // $(window).scroll(function() {
+            //     // console.log("'么么哒 ': $('html,body').scrollTop", $('html,body').scrollTop())
+            //     console.log("'么么哒 ': $(window).scrollTop()", $(window).scrollTop())
+            //     console.log($('a'));
+            //     if ($(window).scrollTop() < 0) {
+            //         console.log('这是刷新');
+            //     } else {
+            //         console.log('正在下拉...');
+            //     }
+            // })
 
 
 
