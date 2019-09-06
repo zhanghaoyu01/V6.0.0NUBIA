@@ -1,0 +1,1 @@
+"use strict";function save(n,e){var i=0;return function(){var t=Date.now();e<t-i&&(n.apply(this,arguments),i=t)}}function debounce(e,i){var u=void 0;return function(){var t=arguments,n=this;u&&clearTimeout(u),u=setTimeout(function(){e.apply(n,t)},i)}}

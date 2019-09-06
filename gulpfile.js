@@ -5,7 +5,6 @@ const cssmin = require('gulp-cssmin');
 const uglify = require('gulp-uglify');
 const imagemin = require('gulp-imagemin');
 const concat = require('gulp-concat');
-// const less = require('gulp-less');
 const path = require('path'); // nodejs自带模块 path
 const babel = require('gulp-babel');
 var spritesmith = require('gulp.spritesmith');
@@ -15,20 +14,29 @@ var spritesmith = require('gulp.spritesmith');
 gulp.task('htmlmin', function() {
     return gulp.src('./src/html/*.html')
         .pipe(htmlmin({ collapseWhitespace: true }))
-        .pipe(gulp.dest('./dist/html'));
+        .pipe(gulp.dest('./dist/html0000'));
 });
 
 // 2. 压缩css
 gulp.task('cssmin', function() {
-    return gulp.src('./src/css/*.css')
+    return gulp.src('./font_ufs83m5no89/*.css')
         .pipe(cssmin())
         .pipe(rename({ suffix: '.min' }))
-        .pipe(gulp.dest('./dist/css'));
+        .pipe(gulp.dest('./dist/font_ufs83m5no89'));
+
 });
+
+
+
+gulp.task('cssrename', function() {
+    return gulp.src('./dist/css/*.min.css')
+        .pipe(rename('*.css'))
+        .pipe(gulp.dest('./dist/css'));
+})
 
 // 3. 压缩js
 gulp.task('jsmin', function() {
-    return gulp.src('./disk/js/es5.js')
+    return gulp.src('./src/jses6/*.js')
         .pipe(uglify())
         .pipe(rename({ suffix: '.min' }))
         .pipe(gulp.dest('./dist/js'));
@@ -36,10 +44,12 @@ gulp.task('jsmin', function() {
 
 // 4. 压缩图片
 gulp.task('imagemin', function() {
-    return gulp.src('./src/image/*')
+    return gulp.src('./src/image/*.png')
         .pipe(imagemin())
+        .pipe(rename({ suffix: '.min' }))
         .pipe(gulp.dest('./disk/image'));
 });
+
 
 // 5. 合并JS  减少请求次数
 gulp.task('js', function() {
@@ -50,6 +60,7 @@ gulp.task('js', function() {
         .pipe(uglify())
         .pipe(gulp.dest('./dist/js'));
 });
+
 
 
 
@@ -74,4 +85,35 @@ gulp.task('sprite', function() {
             cssName: 'spritenav.css'
         }))
         .pipe(gulp.dest('disk/smith'));
+});
+
+
+gulp.task('babel', function() {
+    return gulp.src('src/js/*.js')
+        .pipe(babel({
+            presets: ['es2015']
+        }))
+        .pipe(gulp.dest('src/jses6/'));
+});
+
+
+gulp.task('coplib', function() {
+    return gulp.src('src/lib/*')
+        .pipe(gulp.dest('dist/lib/'));
+});
+
+
+gulp.task('copimages', function() {
+    return gulp.src('src/image/*.png')
+        .pipe(gulp.dest('dist/image/'));
+});
+
+gulp.task('copmd', function() {
+    return gulp.src('src/*.md')
+        .pipe(gulp.dest('dist/'));
+});
+
+gulp.task('copiconfont', function() {
+    return gulp.src('')
+        .pipe(gulp.dest('dist/'));
 });
