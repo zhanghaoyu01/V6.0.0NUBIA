@@ -102,7 +102,7 @@
         });
 
         //立即登录的跳转
-        $('.unloginNav').find('button').click(function(e) {
+        $('.unloginNav').find('.button').click(function(e) {
             e.stopPropagation();
             Location.href = '../html/regest-login.html'
         });
